@@ -55,6 +55,7 @@ function useTheme() {
     const sysDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
     const isDark = theme === "dark" || (theme === "system" && sysDark);
     root.classList.toggle('dark', isDark);
+    root.classList.toggle('bg-gray-900', isDark); // Add this line to change the background color
   }, [theme]);
   return [theme, setTheme];
 }
@@ -105,13 +106,17 @@ function Ring({ size=120, stroke=12, value=0, label, sublabel }) {
   const dash = (pct / 100) * c;
   return (
     <div className="flex flex-col items-center">
-      <svg width={size} height={size} className="-rotate-90">
-        <circle cx={size/2} cy={size/2} r={r} strokeWidth={stroke} className="text-neutral-200 dark:text-neutral-800" stroke="currentColor" fill="none" />
-        <circle cx={size/2} cy={size/2} r={r} strokeWidth={stroke} strokeLinecap="round" strokeDasharray={`${dash} ${c}`} className="text-indigo-600" stroke="currentColor" fill="none" />
-      </svg>
-      <div className="-mt-20 text-3xl font-bold">{Math.round(pct)}%</div>
-      <div className="text-sm text-neutral-600 dark:text-neutral-400">{label}</div>
-      {sublabel && <div className="text-xs text-neutral-500">{sublabel}</div>}
+      <div className="relative inline-flex items-center justify-center" style={{ width: size, height: size }}>
+        <svg width={size} height={size} className="-rotate-90 absolute">
+          <circle cx={size/2} cy={size/2} r={r} strokeWidth={stroke} className="text-neutral-200 dark:text-neutral-800" stroke="currentColor" fill="none" />
+          <circle cx={size/2} cy={size/2} r={r} strokeWidth={stroke} strokeLinecap="round" strokeDasharray={`${dash} ${c}`} className="text-indigo-600" stroke="currentColor" fill="none" />
+        </svg>
+        <div className="text-center">
+          <div className="text-2xl font-bold">{Math.round(pct)}%</div>
+          <div className="text-xs text-neutral-600 dark:text-neutral-400">{label}</div>
+          {sublabel && <div className="text-[10px] text-neutral-500 mt-0.5">{sublabel}</div>}
+        </div>
+      </div>
     </div>
   );
 }
@@ -286,13 +291,13 @@ function getBMICategory(bmi) { if (!bmi) return ""; if (bmi < 18.5) return "Unde
 function BMICalc({ heightFt, setHeightFt, heightIn, setHeightIn, weight, setWeight, bmi, category }) {
   return (
     <Section title="BMI Calculator" icon={<Scale className="h-5 w-5" />}>
-      <div className="grid sm:grid-cols-2 gap-4">
-        <div className="grid grid-cols-3 gap-2">
-          <div><label className="label">Height (ft)</label><input className="input" type="number" value={heightFt} onChange={e=>setHeightFt(e.target.value)} /></div>
-          <div><label className="label">Height (in)</label><input className="input" type="number" value={heightIn} onChange={e=>setHeightIn(e.target.value)} /></div>
-          <div><label className="label">Weight (lb)</label><input className="input" type="number" value={weight} onChange={e=>setWeight(e.target.value)} /></div>
+      <div className="grid md:grid-cols-2 gap-6">
+        <div className="grid grid-cols-3 gap-3">
+          <div><label className="label block mb-1">Height (ft)</label><input className="input w-full" type="number" value={heightFt} onChange={e=>setHeightFt(e.target.value)} /></div>
+          <div><label className="label block mb-1">Height (in)</label><input className="input w-full" type="number" value={heightIn} onChange={e=>setHeightIn(e.target.value)} /></div>
+          <div><label className="label block mb-1">Weight (lb)</label><input className="input w-full" type="number" value={weight} onChange={e=>setWeight(e.target.value)} /></div>
         </div>
-        <div className="rounded-2xl border border-neutral-200 dark:border-neutral-800 p-4">
+        <div className="rounded-2xl border border-neutral-200 dark:border-neutral-800 p-4 flex flex-col justify-center">
           <div className="text-sm text-neutral-500">Your BMI</div>
           <div className="text-4xl font-semibold mt-1">{bmi?bmi.toFixed(1):"–"}</div>
           <div className={classNames("mt-1 text-sm", category==="Normal"?"text-emerald-600":category?"text-amber-600":"text-neutral-500")}>{category||"Enter your stats"}</div>
@@ -658,6 +663,8 @@ export default function App() {
       </main>
 
       <style>{`
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+        :root { font-family: 'Inter', sans-serif; }
         .input { @apply px-3 py-2 rounded-2xl border border-neutral-300 dark:border-neutral-700 bg-white/80 dark:bg-neutral-900/80 outline-none focus:ring-2 focus:ring-indigo-400 dark:focus:ring-indigo-600; }
         .btn { @apply inline-flex items-center gap-2 px-3 py-2 rounded-2xl bg-indigo-600 text-white hover:bg-indigo-700 active:scale-[.99] transition; }
         .btn-subtle { @apply inline-flex items-center gap-2 px-3 py-2 rounded-2xl border border-neutral-300 dark:border-neutral-700 hover:bg-neutral-50 dark:hover:bg-neutral-800; }
