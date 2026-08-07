@@ -12,7 +12,7 @@ import { useApp } from '@/state/AppProvider';
 const dashboardCards = [{ id: 'weight', label: 'Weight' }, { id: 'recovery', label: 'Recovery' }, { id: 'water', label: 'Water' }, { id: 'activity', label: 'Activity' }, { id: 'mood', label: 'Mood' }, { id: 'habits', label: 'Habits' }];
 
 export default function SettingsScreen() {
-  const theme = useTheme(); const { width } = useWindowDimensions(); const { data, update, updateSettings, signOut, resetData } = useApp(); const [deleting, setDeleting] = useState(false); const profile = data.profile!;
+  const theme = useTheme(); const { width } = useWindowDimensions(); const { data, update, updateSettings, signOut, resetData } = useApp(); const [deleting, setDeleting] = useState(false); const profile = data.profile ?? { firstName: 'Guest', email: 'Not signed in', units: data.onboarding.units };
   const setTheme = (value: 'system' | 'light' | 'dark') => updateSettings({ theme: value });
   const toggleDashboard = (id: string) => updateSettings({ dashboardCards: data.settings.dashboardCards.includes(id) ? data.settings.dashboardCards.filter((item) => item !== id) : [...data.settings.dashboardCards, id] });
   const logout = () => { signOut(); router.replace('/welcome'); };

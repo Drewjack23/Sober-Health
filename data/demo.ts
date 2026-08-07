@@ -12,7 +12,7 @@ export const emptyOnboarding = {
 export const initialData: AppData = {
   profile: null,
   onboarding: emptyOnboarding,
-  weights: [], water: [], moods: [], mealLogs: [], savedMeals: [], dislikedMeals: [], workoutLogs: [], recoveryCheckins: [],
+  weights: [], water: [], moods: [], mealLogs: [], savedMeals: [], dislikedMeals: [], groceryItems: [], mealPlan: [], savedBowls: [], workoutLogs: [], recoveryCheckins: [],
   recovery: { enabled: false, goal: 'Live alcohol-free today', motivation: '', copingStrategies: ['Take a walk', 'Call someone I trust', 'Breathe for one minute'] },
   habits: [
     { id: 'water', title: 'Reach water goal', completedDates: [] },

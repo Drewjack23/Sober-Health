@@ -47,13 +47,34 @@ export interface Meal {
   category: 'Breakfast' | 'Lunch' | 'Dinner' | 'Snack' | 'Pre-workout' | 'Post-workout';
   description: string;
   protein: number;
+  calories: number;
+  carbs: number;
+  fat: number;
   time: number;
+  prepTime: number;
+  cookTime: number;
+  servingSize: string;
+  servings: number;
+  difficulty: 'Easy' | 'Moderate';
+  image: string;
   tags: string[];
-  ingredients: string[];
+  ingredients: RecipeIngredient[];
+  instructions: string[];
   diets: string[];
   goalFit: string[];
+  cuisine?: string;
   budget?: boolean;
 }
+
+export type GroceryCategory = 'Produce' | 'Meat & Protein' | 'Grains & Bakery' | 'Dairy & Refrigerated' | 'Canned & Pantry' | 'Frozen' | 'Other';
+export interface RecipeIngredient { name: string; amount: number; unit: string; category: GroceryCategory }
+export interface GrocerySource { id: string; label: string; amount: number }
+export interface GroceryItem { id: string; name: string; amount: number; unit: string; category: GroceryCategory; checked: boolean; sources: GrocerySource[] }
+export type MealPlanDay = 'Monday' | 'Tuesday' | 'Wednesday' | 'Thursday' | 'Friday' | 'Saturday' | 'Sunday';
+export type MealPlanSlot = 'Breakfast' | 'Lunch' | 'Dinner' | 'Snack';
+export interface MealPlanEntry { id: string; day: MealPlanDay; slot: MealPlanSlot; mealId: string }
+export interface CustomBowlSelection { base: string; protein: string; beans: string; toppings: string[] }
+export interface SavedBowl { id: string; title: string; selection: CustomBowlSelection; calories: number; protein: number; carbs: number; fat: number; createdAt: string }
 
 export interface Workout {
   id: string;
@@ -108,6 +129,9 @@ export interface AppData {
   mealLogs: string[];
   savedMeals: string[];
   dislikedMeals: string[];
+  groceryItems: GroceryItem[];
+  mealPlan: MealPlanEntry[];
+  savedBowls: SavedBowl[];
   workoutLogs: WorkoutLog[];
   recovery: RecoveryProfile;
   recoveryCheckins: RecoveryCheckin[];
@@ -115,4 +139,3 @@ export interface AppData {
   achievements: Achievement[];
   settings: AppSettings;
 }
-
