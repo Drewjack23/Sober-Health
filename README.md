@@ -124,6 +124,20 @@ npm run lint
 npm run build:web
 ```
 
+Native release checks and EAS commands:
+
+```bash
+npm run doctor
+npm run bundle:ios
+npm run bundle:android
+npm run eas:build:ios
+npm run eas:build:android
+```
+
+The native application identifiers and version counters are configured in `app.json`, and production EAS profiles are defined in `eas.json`. See [`docs/STORE_RELEASE.md`](docs/STORE_RELEASE.md) for the complete TestFlight, Play internal-testing, metadata, privacy, and submission runbook. Store listing drafts are under `store/metadata/en-US`.
+
+Public web routes are included for `/privacy-policy`, `/terms`, and `/app-support`. Deploy the web build to a permanent HTTPS domain and use those URLs in App Store Connect and Google Play Console. Set the real support email and public site URL through the production environment rather than committing secrets.
+
 The test suite covers adult BMI boundaries, imperial/metric conversion, weight trends, recovery streak/lapse/calendar logic, allergy exclusion, diet filtering, dislikes, and recommendation ranking.
 
 ## Privacy and health safety
@@ -154,4 +168,3 @@ Before a public beta or App Store/Google Play submission:
 - Add HealthKit/Health Connect only behind explicit, granular consent and least-privilege scopes.
 
 Future integrations already have clear domain boundaries for HealthKit/Health Connect, wearables, steps, push notifications, barcode scanning, food photos, AI planning, community/support, accountability partners, meetings, and subscriptions.
-

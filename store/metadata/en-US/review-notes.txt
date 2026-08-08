@@ -1,0 +1,5 @@
+Sober Plus Health is an adult wellness app and does not provide medical treatment or detox instructions.
+
+Reviewers can select “Explore with demo data” on the welcome screen. No credentials are required. Demo mode exposes all major features, including Recovery, Nutrition, Fitness, Progress, Settings, data export, and account/data deletion.
+
+Recovery data is private by default. Crisis and treatment links are informational and open external phone/web services only after user action. The app does not use HealthKit, Health Connect, advertising identifiers, location, camera, microphone, contacts, or background tracking.

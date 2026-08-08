@@ -17,7 +17,7 @@ interface AppContextValue {
   isDark: boolean;
   update: (recipe: (current: AppData) => AppData) => void;
   startDemo: () => void;
-  createLocalAccount: (email: string, firstName: string) => void;
+  createLocalAccount: (email: string, firstName: string, options?: { id?: string; onboardingComplete?: boolean }) => void;
   signOut: () => void;
   resetData: () => Promise<void>;
   updateOnboarding: (patch: Partial<OnboardingAnswers>) => void;
@@ -69,9 +69,9 @@ export function AppProvider({ children }: React.PropsWithChildren) {
 
   const update = useCallback((recipe: (current: AppData) => AppData) => setData((current) => recipe(current)), []);
   const startDemo = useCallback(() => setData(clone(demoData)), []);
-  const createLocalAccount = useCallback((email: string, firstName: string) => setData((current) => ({
+  const createLocalAccount = useCallback((email: string, firstName: string, options?: { id?: string; onboardingComplete?: boolean }) => setData((current) => ({
     ...current,
-    profile: { id: uid(), email, firstName, age: 18, heightCm: 170, units: 'imperial', onboardingComplete: false, demoMode: false, createdAt: dateKey() },
+    profile: { id: options?.id ?? uid(), email, firstName, age: current.onboarding.age ?? 18, heightCm: current.onboarding.heightCm ?? 170, units: current.onboarding.units, onboardingComplete: options?.onboardingComplete ?? false, demoMode: false, createdAt: dateKey() },
   })), []);
   const signOut = useCallback(() => setData((current) => ({ ...current, profile: null })), []);
   const resetData = useCallback(async () => { await AsyncStorage.removeItem(STORAGE_KEY); setData(clone(initialData)); router.replace('/welcome'); }, []);
