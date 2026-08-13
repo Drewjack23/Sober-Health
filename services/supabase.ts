@@ -2,12 +2,21 @@ import 'react-native-url-polyfill/auto';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { createClient } from '@supabase/supabase-js';
 
-const url = process.env.EXPO_PUBLIC_SUPABASE_URL;
-const anonKey = process.env.EXPO_PUBLIC_SUPABASE_ANON_KEY;
+// Supabase publishable credentials are public client identifiers. Environment
+// variables override these defaults, but keeping the project defaults here
+// prevents Expo builds from silently disabling auth when a host uses different
+// variable names for its Supabase integration.
+const defaultUrl = 'https://linwyoexpgvvoqfqozdk.supabase.co';
+const defaultPublishableKey = 'sb_publishable_oygZI9citVbjUO_r3k4ysQ_HvrbF7jH';
 
-export const isSupabaseConfigured = Boolean(url && anonKey);
+const url = process.env.EXPO_PUBLIC_SUPABASE_URL ?? defaultUrl;
+const publishableKey = process.env.EXPO_PUBLIC_SUPABASE_PUBLISHABLE_KEY
+  ?? process.env.EXPO_PUBLIC_SUPABASE_ANON_KEY
+  ?? defaultPublishableKey;
+
+export const isSupabaseConfigured = Boolean(url && publishableKey);
 export const supabase = isSupabaseConfigured
-  ? createClient(url!, anonKey!, {
+  ? createClient(url!, publishableKey!, {
       auth: { storage: AsyncStorage, autoRefreshToken: true, persistSession: true, detectSessionInUrl: false },
     })
   : null;

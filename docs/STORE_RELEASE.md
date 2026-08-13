@@ -17,7 +17,7 @@ The repository is configured for EAS production builds for iOS and Android. Code
 2. Apply `supabase/migrations/001_initial_schema.sql`.
 3. Deploy `supabase/functions/delete-account` and configure its server-only secrets.
 4. Configure email verification, reset redirects, rate limits, and production email templates.
-5. Set `EXPO_PUBLIC_SUPABASE_URL`, `EXPO_PUBLIC_SUPABASE_ANON_KEY`, `EXPO_PUBLIC_SUPPORT_EMAIL`, and `EXPO_PUBLIC_PUBLIC_SITE_URL` as EAS production environment variables.
+5. Set `EXPO_PUBLIC_SUPABASE_URL`, `EXPO_PUBLIC_SUPABASE_PUBLISHABLE_KEY`, `EXPO_PUBLIC_SUPPORT_EMAIL`, and `EXPO_PUBLIC_PUBLIC_SITE_URL` as EAS production environment variables.
 6. Deploy the web build so `/privacy-policy`, `/terms`, and `/app-support` have permanent HTTPS URLs.
 
 Never place a Supabase service-role key in an `EXPO_PUBLIC_` variable or client build.

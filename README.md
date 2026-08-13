@@ -76,7 +76,7 @@ Environment variables are optional for Demo Mode:
 
 ```dotenv
 EXPO_PUBLIC_SUPABASE_URL=https://your-project.supabase.co
-EXPO_PUBLIC_SUPABASE_ANON_KEY=your-anon-key
+EXPO_PUBLIC_SUPABASE_PUBLISHABLE_KEY=sb_publishable_your-key
 ```
 
 Never place the Supabase service-role key in the app. It belongs only in server-side Supabase Edge Function secrets.
