@@ -14,6 +14,18 @@ const destinations = [
   { id: 'grocery', label: 'Grocery list', icon: 'basket-outline', href: '/grocery-list' },
 ] as const;
 
+const recipeImages: Record<string, number> = {
+  'recipe:bowl': require('../assets/recipes/bowl.jpg'),
+  'recipe:tacos': require('../assets/recipes/tacos.jpg'),
+  'recipe:breakfast': require('../assets/recipes/breakfast.jpg'),
+  'recipe:oats': require('../assets/recipes/oats.jpg'),
+  'recipe:pasta': require('../assets/recipes/pasta.jpg'),
+  'recipe:salmon': require('../assets/recipes/salmon.jpg'),
+  'recipe:burger': require('../assets/recipes/burger.jpg'),
+  'recipe:smoothie': require('../assets/recipes/smoothie.jpg'),
+  'recipe:snack': require('../assets/recipes/snack.jpg'),
+};
+
 export function NutritionNav({ current }: { current: 'recipes' | 'favorites' | 'plan' | 'grocery' }) {
   const theme = useTheme();
   return <View style={[styles.nav, { borderColor: theme.colors.border }]}>{destinations.map((item) => { const active = current === item.id; return <Pressable key={item.id} accessibilityRole="button" accessibilityState={{ selected: active }} onPress={() => { selectionFeedback(); router.push(item.href as never); }} style={({ pressed }) => [styles.navItem, active && { backgroundColor: theme.isDark ? '#29213F' : '#F1EDFC' }, pressed && styles.pressed]}><Ionicons name={item.icon} size={17} color={active ? colors.purple : theme.colors.muted} /><Text style={[styles.navLabel, { color: active ? (theme.isDark ? '#CBBDF7' : colors.purple) : theme.colors.muted }]}>{item.label}</Text></Pressable>; })}</View>;
@@ -21,7 +33,8 @@ export function NutritionNav({ current }: { current: 'recipes' | 'favorites' | '
 
 export function RecipeImage({ meal, height = 164 }: { meal: Meal; height?: number }) {
   const theme = useTheme();
-  return <View style={[styles.imageFrame, { height, backgroundColor: theme.colors.surfaceSubtle }]}><Image source={{ uri: meal.image }} accessibilityLabel={`${meal.title} prepared meal`} resizeMode="cover" style={StyleSheet.absoluteFill} /><View style={styles.imageShade} /><View style={styles.imageBadge}><Text style={styles.imageBadgeText}>{meal.category}</Text></View></View>;
+  const source = recipeImages[meal.image] ?? { uri: meal.image };
+  return <View style={[styles.imageFrame, { height, backgroundColor: theme.colors.surfaceSubtle }]}><Image source={source} accessibilityLabel={`${meal.title} prepared meal`} resizeMode="cover" style={StyleSheet.absoluteFill} /><View style={styles.imageShade} /><View style={styles.imageBadge}><Text style={styles.imageBadgeText}>{meal.category}</Text></View></View>;
 }
 
 export function RecipeCard({ meal, saved, onSave }: { meal: Meal; saved: boolean; onSave: () => void }) {

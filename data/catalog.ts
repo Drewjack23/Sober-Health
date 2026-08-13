@@ -1,16 +1,15 @@
 import type { GroceryCategory, Meal, RecipeIngredient, Workout } from '@/types/models';
 
-const image = (id: string) => `https://images.unsplash.com/${id}?auto=format&fit=crop&w=1200&q=82`;
 const images = {
-  bowl: image('photo-1547592180-85f173990554'),
-  tacos: image('photo-1551504734-5ee1c4a1479b'),
-  breakfast: image('photo-1525351484163-7529414344d8'),
-  oats: image('photo-1517673400267-0251440c45dc'),
-  pasta: image('photo-1473093295043-cdd812d0e601'),
-  salmon: image('photo-1467003909585-2f8a72700288'),
-  burger: image('photo-1568901346375-23c9450c58cd'),
-  smoothie: image('photo-1505252585461-04db1eb84625'),
-  snack: image('photo-1488477181946-6428a0291777'),
+  bowl: 'recipe:bowl',
+  tacos: 'recipe:tacos',
+  breakfast: 'recipe:breakfast',
+  oats: 'recipe:oats',
+  pasta: 'recipe:pasta',
+  salmon: 'recipe:salmon',
+  burger: 'recipe:burger',
+  smoothie: 'recipe:smoothie',
+  snack: 'recipe:snack',
 };
 
 const i = (name: string, amount: number, unit: string, category: GroceryCategory): RecipeIngredient => ({ name, amount, unit, category });
