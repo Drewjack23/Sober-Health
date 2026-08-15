@@ -2,9 +2,11 @@ create extension if not exists "pgcrypto";
 
 create table public.profiles (
   id uuid primary key references auth.users(id) on delete cascade,
-  email text,
   first_name text not null default '',
-  age int check (age is null or age >= 18),
+  last_name text not null default '',
+  email text,
+  phone text, 
+  age int check (age is null or age >= 16),
   height_cm numeric check (height_cm is null or height_cm > 0),
   units text not null default 'imperial' check (units in ('imperial','metric')),
   onboarding_complete boolean not null default false,

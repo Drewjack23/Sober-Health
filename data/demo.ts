@@ -18,6 +18,8 @@ export const initialData: AppData = {
     { id: 'water', title: 'Reach water goal', completedDates: [] },
     { id: 'move', title: 'Move for 20 minutes', completedDates: [] },
     { id: 'reflect', title: 'Evening reflection', completedDates: [] },
+    { id: 'meditation', title: 'Weekly Meditation', completedDates: [] },
+    { id: 'Skincare', title: 'Nightly Debriefing', completedDates: [] },
   ],
   achievements: [
     { id: 'first-workout', title: 'First Workout', detail: 'A strong first step.', icon: 'barbell' },
